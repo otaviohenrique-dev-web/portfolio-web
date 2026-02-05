@@ -1,0 +1,104 @@
+/* src/App.css */
+:root {
+  --primary-color: #00d2ff;
+  --bg-dark: #050505;
+  --bg-card: #111;
+  --text-main: #ffffff;
+  --text-muted: #a0a0a0;
+  --nav-height: 80px; /* Altura fixa do menu para cálculos */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- Container Geral --- */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Ajuste para o conteúdo não ficar escondido atrás do menu fixo */
+main {
+  width: 100%;
+}
+
+/* --- Seções Gerais --- */
+section {
+  padding: 80px 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* Centraliza a seção na tela */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* --- Títulos Responsivos (Evita títulos gigantes) --- */
+h1 {
+  font-size: clamp(2rem, 5vw, 4rem); /* Mínimo 2rem, Ideal 5vw, Máximo 4rem */
+  text-align: center;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--text-main);
+}
+
+/* --- HOME / HERO SECTION (Correção do "Invadindo") --- */
+#home {
+  min-height: 100vh; /* Ocupa 100% da altura da janela */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: var(--nav-height); /* Compensa o menu fixo */
+  position: relative;
+  background: radial-gradient(circle at center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
+}
+
+#home h1 {
+  background: linear-gradient(90deg, #fff, var(--primary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+/* --- SOBRE (Garante espaçamento) --- */
+#about {
+  scroll-margin-top: var(--nav-height); /* Quando clicar no menu, para no lugar certo */
+  background-color: #0a0a0a; /* Diferencia levemente do fundo */
+  border-radius: 20px;
+  margin: 40px auto;
+}
+
+/* --- Scrollbar Bonita --- */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
