@@ -290,3 +290,15 @@ Pronto para produção! 🚀
 ---
 
 **Última atualização:** 04/02/2026
+
+---
+
+## 🛠️ Correções e Ajustes Recentes (Solicitados)
+
+### 1. Correções Visuais
+- **Sobreposição:** Adicionar `background-color` na seção "Sobre" para evitar que ela invada a Home ao rolar.
+- **Tipografia:** Ajustar títulos grandes usando `clamp()` e centralizar elementos.
+
+### 2. Melhorias no Carrossel (Projetos)
+- **Navegação:** Adicionar setas e botão de tela cheia (`showNav`, `showFullscreenButton`).
+- **Visualização:** Ajustar `object-fit` das imagens para evitar cortes excessivos no card e garantir visualização completa em tela cheia.

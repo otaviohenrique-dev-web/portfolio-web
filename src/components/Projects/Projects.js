@@ -1,66 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
 // Importação dos estilos globais do projeto
 import '../../assets/css/Projects.css';
 
-// --- Sub-componente do Carrossel ---
-const ProjectImageCarousel = ({ images, title }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+// Função auxiliar para formatar imagens para a galeria
+const getGalleryItems = (images) => {
+  if (!images || images.length === 0) {
+    return [{
+      original: "https://via.placeholder.com/600x400?text=Sem+Imagem",
+      thumbnail: "https://via.placeholder.com/600x400?text=Sem+Imagem",
+    }];
+  }
 
-  useEffect(() => {
-    if (!images || images.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, [images]);
+  return images.map(img => {
+    // Tenta extrair a URL correta independente do formato (string ou objeto)
+    let url = "https://via.placeholder.com/600x400?text=Erro";
+    if (typeof img === 'string') url = img;
+    else if (typeof img === 'object') url = img.original || img.secure_url || img.url;
 
-  // Lógica de Proteção: Tenta extrair a URL correta independente do formato
-  const getImageUrl = (img) => {
-    if (!img) return "https://via.placeholder.com/600x400?text=Sem+Imagem";
-    
-    // Caso 1: É uma string (Link direto)
-    if (typeof img === 'string') {
-        if (img.includes('localhost') || !img.startsWith('http')) {
-            return "https://via.placeholder.com/600x400?text=Link+Quebrado";
-        }
-        return img;
-    }
-    
-    // Caso 2: É um objeto (Aqui estava o erro!)
-    // Agora aceitamos .original (que vem do seu JSON), além de .secure_url e .url
-    if (typeof img === 'object') {
-        return img.original || img.secure_url || img.url || "https://via.placeholder.com/600x400?text=Erro+Formato";
-    }
-
-    return "https://via.placeholder.com/600x400?text=Sem+Imagem";
-  };
-
-  const currentImageRaw = images && images.length > 0 ? images[currentIndex] : null;
-  const currentImageSrc = getImageUrl(currentImageRaw);
-
-  return (
-    <div className="project-image-wrapper">
-      <img 
-        src={currentImageSrc} 
-        alt={`${title} - Preview ${currentIndex + 1}`} 
-        className="project-image"
-        onError={(e) => { e.target.src = "https://via.placeholder.com/600x400?text=Imagem+Nao+Carregou"; }}
-      />
-      
-      {images && images.length > 1 && (
-        <div className="carousel-indicators">
-          {images.map((_, idx) => (
-            <span 
-              key={idx} 
-              className={`indicator ${idx === currentIndex ? 'active' : ''}`}
-            />
-          ))}
-        </div>
-      )}
-    </div>
-  );
+    return {
+      original: url,
+      thumbnail: url,
+      originalClass: 'project-gallery-image',
+      loading: 'lazy'
+    };
+  });
 };
 
 // --- Componente Principal ---
@@ -107,7 +74,16 @@ const Projects = () => {
             projects.map((project) => (
               <div className="project-card" key={project._id}>
                 
-                <ProjectImageCarousel images={project.images} title={project.title} />
+                <div className="project-image-wrapper">
+                  <ImageGallery 
+                    items={getGalleryItems(project.images)}
+                    showPlayButton={false}
+                    showFullscreenButton={true}
+                    showNav={true}
+                    showThumbnails={false}
+                    showBullets={true}
+                  />
+                </div>
 
                 <div className="project-content">
                   <h3>{project.title}</h3>

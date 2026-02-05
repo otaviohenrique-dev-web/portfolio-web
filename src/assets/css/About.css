@@ -6,6 +6,8 @@
   align-items: center;
   padding: 0 20px;
   position: relative;
+  background-color: #0a192f; /* Cor de fundo para evitar sobreposição na Home */
+  z-index: 2;
 }
 
 /* Wrapper para alinhar Foto e Texto */
@@ -63,9 +65,10 @@
 
 /* Tipografia */
 .section-title {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem); /* Tamanho fluido para evitar títulos gigantes */
   margin-bottom: 25px;
   color: var(--text-primary);
+  text-align: center; /* Centraliza o título */
 }
 
 .highlight-dot {
