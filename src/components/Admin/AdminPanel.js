@@ -15,8 +15,8 @@ const AdminPanel = () => {
     const [files, setFiles] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    // URL do seu Backend no Render
-    const API_URL = "https://portfolio-api-otavio.onrender.com/projects"; 
+    
+    const API_URL = `${process.env.REACT_APP_API_URL}/projects`; 
 
     // Carregar projetos ao abrir
     useEffect(() => {
