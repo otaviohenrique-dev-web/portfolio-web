@@ -1,0 +1,98 @@
+/* src/assets/css/App.css */
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Fundo com gradiente sutil para não ficar "chapado" */
+  background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, var(--bg-dark) 50%);
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Utilitários Globais */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em; /* Deixa títulos mais elegantes */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+p {
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Container padrão para centralizar conteúdo */
+main {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 100px; /* Espaço generoso entre seções (Respiro Premium) */
+  margin-bottom: 100px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Efeito de brilho em botões e links (Global) */
+a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Responsividade Global */
+@media (max-width: 768px) {
+  main {
+    gap: 60px;
+    padding: 0 15px;
+    margin-bottom: 80px;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: -0.015em;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    gap: 50px;
+    padding: 0 12px;
+    margin-bottom: 60px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  h2 {
+    font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+  }
+
+  h3 {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+  }
+
+  p {
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 320px) {
+  main {
+    padding: 0 10px;
+    gap: 40px;
+  }
+}

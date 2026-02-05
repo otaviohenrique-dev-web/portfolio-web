@@ -1,0 +1,179 @@
+/* src/assets/css/Footer.css */
+
+.main-footer {
+  width: 100%;
+  /* Fundo ligeiramente diferente do body para criar separação */
+  background-color: #050505; 
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Linha sutil no topo */
+  padding: 30px 20px;
+  margin-top: auto; /* Garante que fique no fundo se o conteúdo for curto */
+  font-family: var(--font-body);
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; /* Espalha os 3 blocos */
+  align-items: center;
+  flex-wrap: wrap; /* Permite quebrar linha no mobile */
+  gap: 20px;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* --- BLOCO 1: INFO (Copyright) --- */
+.footer-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.footer-info strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.footer-separator {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 0.8rem;
+}
+
+/* --- BLOCO 2: ÍCONES SOCIAIS --- */
+.footer-social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-social-icons a {
+  color: var(--text-secondary);
+  font-size: 1.4rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito elástico */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-social-icons a:hover {
+  color: var(--primary); /* Azul Neon */
+  transform: translateY(-3px) scale(1.1); /* Sobe e cresce */
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6)); /* Glow */
+}
+
+/* --- BLOCO 3: BOTÃO CÓDIGO FONTE --- */
+.source-code-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 50px; /* Formato Pílula */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.footer-icon {
+  font-size: 1.1rem;
+}
+
+.source-code-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--text-secondary);
+  color: var(--text-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+  .main-footer {
+    padding: 25px 16px;
+  }
+
+  .footer-content {
+    flex-direction: column; /* Empilha tudo verticalmente */
+    text-align: center;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .footer-info {
+    flex-direction: column; /* Quebra o texto de copyright em duas linhas */
+    gap: 5px;
+    font-size: 0.85rem;
+  }
+  
+  .footer-separator {
+    display: none; /* Esconde a barra separadora no mobile */
+  }
+
+  .footer-social-icons {
+    gap: 25px; /* Mais espaço para o dedo no toque */
+  }
+
+  .footer-social-icons a {
+    font-size: 1.3rem;
+  }
+  
+  .source-code-btn {
+    width: 100%; /* Botão largo no mobile */
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 10px 16px;
+  }
+
+  .footer-icon {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-footer {
+    padding: 20px 12px;
+    margin-top: 40px;
+  }
+
+  .footer-content {
+    gap: 18px;
+  }
+
+  .footer-info {
+    gap: 3px;
+    font-size: 0.8rem;
+  }
+
+  .footer-info strong {
+    font-size: 0.85rem;
+  }
+
+  .footer-social-icons {
+    gap: 18px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-social-icons a {
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+  }
+
+  .footer-social-icons a:hover {
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .source-code-btn {
+    padding: 8px 14px;
+    font-size: 0.75rem;
+    gap: 6px;
+  }
+
+  .footer-icon {
+    font-size: 0.9rem;
+  }
+}

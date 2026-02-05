@@ -1,0 +1,290 @@
+/* src/assets/css/Header.css */
+
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--nav-height); /* Definido no index.css */
+  z-index: 1000;
+  transition: all 0.4s ease;
+  background: transparent; /* Começa transparente */
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* --- ESTADO SCROLLED (Efeito Vidro ao rolar) --- */
+.main-header.scrolled {
+  background: rgba(10, 10, 10, 0.85); /* Fundo escuro semitransparente */
+  backdrop-filter: blur(12px); /* O Blur mágico */
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  height: 70px; /* Fica um pouco mais compacto ao rolar */
+}
+
+.header-container {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- LOGO AREA --- */
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-thumb {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--primary);
+  transition: transform 0.3s ease;
+}
+
+.profile-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main-header.scrolled .profile-thumb {
+  width: 40px; /* Reduz levemente ao rolar */
+  height: 40px;
+}
+
+.logo-text h1 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+}
+
+.social-mini-links {
+  display: flex;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.social-mini-links a {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.social-mini-links a:hover {
+  color: var(--primary);
+}
+
+/* --- DESKTOP NAV --- */
+.desktop-nav {
+  display: flex;
+  gap: 30px;
+}
+
+.desktop-nav a {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  padding: 5px 0;
+}
+
+.nav-icon {
+  font-size: 1rem;
+  color: var(--primary);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.desktop-nav a:hover {
+  color: var(--text-primary);
+}
+
+.desktop-nav a:hover .nav-icon {
+  opacity: 1;
+}
+
+/* Animação do Sublinhado */
+.desktop-nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.desktop-nav a:hover::after {
+  width: 100%;
+}
+
+/* --- MOBILE MENU --- */
+.mobile-toggle {
+  display: none; /* Escondido no Desktop */
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Escondido fora da tela */
+  width: 100%;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(10px);
+  z-index: 1050;
+  transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-nav-overlay.active {
+  right: 0; /* Desliza para dentro */
+}
+
+.mobile-nav-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.mobile-nav-content a {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.mobile-socials {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.mobile-socials a {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 768px) {
+  .main-header {
+    padding: 0 15px;
+    height: 70px;
+  }
+
+  .main-header.scrolled {
+    height: 65px;
+  }
+
+  .header-container {
+    padding: 0 10px;
+  }
+
+  .desktop-nav {
+    display: none; /* Esconde menu normal */
+  }
+
+  .mobile-toggle {
+    display: block; /* Mostra botão hambúrguer */
+  }
+
+  .profile-thumb {
+    width: 40px;
+    height: 40px;
+  }
+
+  .main-header.scrolled .profile-thumb {
+    width: 36px;
+    height: 36px;
+  }
+
+  .logo-text h1 {
+    font-size: 1rem;
+  }
+
+  .social-mini-links {
+    gap: 8px;
+  }
+
+  .social-mini-links a {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header {
+    padding: 0 12px;
+    height: 65px;
+  }
+
+  .main-header.scrolled {
+    height: 60px;
+  }
+
+  .logo-area {
+    gap: 10px;
+  }
+
+  .profile-thumb {
+    width: 38px;
+    height: 38px;
+    border-width: 1.5px;
+  }
+
+  .main-header.scrolled .profile-thumb {
+    width: 34px;
+    height: 34px;
+  }
+
+  .logo-text h1 {
+    font-size: 0.9rem;
+  }
+
+  .social-mini-links {
+    gap: 6px;
+    margin-top: 1px;
+  }
+
+  .social-mini-links a {
+    font-size: 0.75rem;
+  }
+
+  .mobile-nav-content a {
+    font-size: 1.3rem;
+  }
+
+  .mobile-socials {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .mobile-socials a {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+  }
+}

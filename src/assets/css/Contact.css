@@ -1,0 +1,350 @@
+/* src/assets/css/Contact.css */
+
+.contact-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  min-height: 90vh;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.contact-wrapper {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  gap: 60px;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* --- LADO ESQUERDO: INFOS --- */
+.contact-info {
+  flex: 1;
+}
+
+.contact-desc {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 15px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.info-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(10px); /* Move levemente para a direita */
+  border-color: var(--primary);
+}
+
+.icon-box {
+  font-size: 1.5rem;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+}
+
+.info-card h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.info-card p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* --- LADO DIREITO: FORMULÁRIO GLASS --- */
+.form-container {
+  flex: 1.2; /* Um pouco mais largo que o texto */
+  padding: 40px;
+  border-radius: 20px;
+  /* Glassmorphism Reutilizado */
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.3);
+}
+
+/* Estilo dos Inputs (Floating Labels) */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-family: var(--font-body);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-group textarea {
+  resize: vertical;
+}
+
+/* Label que flutua */
+.input-group label {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  color: var(--text-secondary);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  padding: 0 5px;
+}
+
+/* Quando focado ou com texto: Label sobe */
+.input-group input:focus,
+.input-group input:not(:placeholder-shown),
+.input-group textarea:focus,
+.input-group textarea:not(:placeholder-shown) {
+  border-color: var(--primary);
+  background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label,
+.input-group textarea:focus ~ label,
+.input-group textarea:not(:placeholder-shown) ~ label {
+  top: -10px;
+  left: 10px;
+  font-size: 0.85rem;
+  color: var(--primary);
+  background-color: var(--bg-card); /* Tarja para esconder a linha atrás do label */
+  border-radius: 4px;
+}
+
+/* Botão de Enviar */
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: var(--gradient-main);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover:not(:disabled) {
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.5);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+/* Mensagens de Feedback */
+.feedback-msg {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.feedback-msg.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  border: 1px solid #22c55e;
+}
+
+.feedback-msg.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid #ef4444;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .contact-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .form-container {
+    width: 100%;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 60px 16px;
+    min-height: auto;
+  }
+
+  .contact-wrapper {
+    gap: 30px;
+    align-items: stretch;
+  }
+
+  .contact-desc {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .contact-cards {
+    gap: 15px;
+  }
+
+  .info-card {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .info-card p {
+    font-size: 0.95rem;
+  }
+
+  .form-container {
+    padding: 20px;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  .input-group input,
+  .input-group textarea {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .submit-btn {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-section {
+    padding: 50px 12px;
+    min-height: 100vh;
+  }
+
+  .contact-wrapper {
+    gap: 25px;
+    width: 100%;
+  }
+
+  .contact-info {
+    width: 100%;
+  }
+
+  .contact-desc {
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+  }
+
+  .contact-cards {
+    gap: 12px;
+  }
+
+  .info-card {
+    padding: 10px 12px;
+    gap: 10px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .info-card:hover {
+    transform: none;
+  }
+
+  .icon-box {
+    font-size: 1.3rem;
+  }
+
+  .info-card h4 {
+    font-size: 0.85rem;
+  }
+
+  .info-card p {
+    font-size: 0.9rem;
+  }
+
+  .form-container {
+    padding: 16px;
+    border-radius: 16px;
+    width: 100%;
+  }
+
+  .input-group {
+    margin-bottom: 18px;
+  }
+
+  .input-group input,
+  .input-group textarea {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .input-group label {
+    left: 12px;
+    font-size: 0.85rem;
+  }
+
+  .input-group input:focus ~ label,
+  .input-group input:not(:placeholder-shown) ~ label,
+  .input-group textarea:focus ~ label,
+  .input-group textarea:not(:placeholder-shown) ~ label {
+    left: 8px;
+    font-size: 0.75rem;
+  }
+
+  .submit-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+    gap: 8px;
+  }
+
+  .feedback-msg {
+    font-size: 0.85rem;
+    padding: 10px;
+    margin-top: 12px;
+  }
+}
