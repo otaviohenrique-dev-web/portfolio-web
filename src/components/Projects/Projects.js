@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 // Importação dos estilos globais do projeto
-import '../../assets/css/Projects.css'; // Importação corrigida para o Vercel
+import '../../assets/css/Projects.css';
 
 // --- Sub-componente do Carrossel ---
 const ProjectImageCarousel = ({ images, title }) => {

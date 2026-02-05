@@ -3,12 +3,14 @@ import React from 'react';
 import '../../assets/css/About.css';
 import { FaHtml5, FaCss3Alt, FaJsSquare, FaReact, FaNodeJs, FaGitAlt, FaDownload, FaPython } from 'react-icons/fa';
 import { BsStars } from "react-icons/bs"; 
-import profileAboutPic from '../../assets/images/profile_pic.jpg';
 import { motion } from 'framer-motion';
 
 const About = React.forwardRef((props, ref) => {
 
   const cvFileName = "files/CV_Otavio_Henrique.pdf"; 
+
+  // Referencing image from public/images folder
+  const profileAboutPic = `${process.env.PUBLIC_URL}/images/profile_pic.jpg`;
 
   // Variantes de Animação
   const containerVariants = {
