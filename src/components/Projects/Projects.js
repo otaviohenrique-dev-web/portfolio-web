@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import './Projects.css';
+import '../../assets/css/Projects.css';
 
 // --- Sub-componente do Carrossel ---
 const ProjectImageCarousel = ({ images, title }) => {
