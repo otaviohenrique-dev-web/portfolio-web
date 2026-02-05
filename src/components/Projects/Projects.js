@@ -13,7 +13,7 @@ const Projects = React.forwardRef((props, ref) => {
 
   // 2. URL do seu Backend (Troque isso quando subir para o Render)
   // Enquanto testa local, use a porta do seu servidor backend (ex: 5000)
-  const API_URL = "https://meu-portfolio-api-u690.onrender.com/projects"; 
+  const API_URL = "https://portfolio-api-otavio.onrender.com/projects"; 
 
   // 3. Busca os dados assim que o componente carrega
   useEffect(() => {
