@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom'; // Importação CRUCIAL para o Portal
 import axios from 'axios';
 import { FaGithub, FaExternalLinkAlt, FaExpand, FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
-// Importação do CSS atualizado
 import '../../assets/css/Projects.css';
 
 // --- Sub-componente do Carrossel Inteligente ---
@@ -10,18 +10,37 @@ const ProjectImageCarousel = ({ images, title }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Auto-play (Pausa se o mouse estiver em cima ou se estiver em fullscreen)
+  // Auto-play (Pausa se hover ou fullscreen)
   useEffect(() => {
     if (!images || images.length <= 1 || isHovered || isFullscreen) return;
-    
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 4000);
-    
     return () => clearInterval(interval);
   }, [images, isHovered, isFullscreen]);
 
-  // Função para limpar URL
+  // Gerencia Scroll e Tecla ESC
+  const closeFullscreen = useCallback(() => {
+    setIsFullscreen(false);
+  }, []);
+
+  useEffect(() => {
+    if (isFullscreen) {
+      document.body.style.overflow = 'hidden'; // Trava o scroll do site
+      const handleKeyDown = (e) => {
+        if (e.key === 'Escape') closeFullscreen();
+        // Adicionando navegação por setas do teclado também
+        if (e.key === 'ArrowRight') nextImage(null); 
+        if (e.key === 'ArrowLeft') prevImage(null);
+      };
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'auto'; // Destrava o scroll
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [isFullscreen, closeFullscreen]);
+
   const getImageUrl = (img) => {
     if (!img) return "https://via.placeholder.com/600x400?text=Sem+Imagem";
     if (typeof img === 'string') return img;
@@ -30,7 +49,7 @@ const ProjectImageCarousel = ({ images, title }) => {
   };
 
   const nextImage = (e) => {
-    e?.stopPropagation(); // Impede cliques indesejados
+    e?.stopPropagation();
     setCurrentIndex((prev) => (prev + 1) % images.length);
   };
 
@@ -38,22 +57,62 @@ const ProjectImageCarousel = ({ images, title }) => {
     e?.stopPropagation();
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
+  
+  const openFullscreen = (e) => {
+    e.stopPropagation();
+    setIsFullscreen(true);
+    setIsHovered(false); // Garante que o estado de hover limpe ao abrir
+  };
 
-  const toggleFullscreen = (e) => {
-    e?.stopPropagation();
-    setIsFullscreen(!isFullscreen);
+  const closeOnOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeFullscreen();
+    }
+  };
+
+  // Handlers de Mouse mais seguros
+  const handleMouseEnter = () => {
+    if (!isFullscreen) setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   const currentSrc = getImageUrl(images && images.length > 0 ? images[currentIndex] : null);
   const hasMultipleImages = images && images.length > 1;
 
+  // --- O MODAL AGORA É UM PORTAL ---
+  // Isso joga o HTML do modal para fora do Card, evitando conflito com CSS 'transform'
+  const modalContent = isFullscreen ? (
+    <div className="fullscreen-modal" onClick={closeOnOverlayClick}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <img src={currentSrc} alt={title} className="modal-image" />
+        
+        <button className="modal-close" onClick={closeFullscreen}>
+            <FaTimes />
+        </button>
+
+        {hasMultipleImages && (
+          <>
+            <button className="modal-nav prev" onClick={prevImage}><FaChevronLeft /></button>
+            <button className="modal-nav next" onClick={nextImage}><FaChevronRight /></button>
+            <div className="modal-counter">{currentIndex + 1} / {images.length}</div>
+          </>
+        )}
+        
+        <h3 className="modal-title">{title}</h3>
+      </div>
+    </div>
+  ) : null;
+
   return (
     <>
-      {/* --- Carrossel no Card --- */}
+      {/* Container da Imagem (Dentro do Card) */}
       <div 
         className="project-image-wrapper"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         <img 
           src={currentSrc} 
@@ -61,13 +120,12 @@ const ProjectImageCarousel = ({ images, title }) => {
           className="project-image"
           onError={(e) => e.target.src = "https://via.placeholder.com/600x400?text=Erro+Carregar"}
         />
-
-        {/* Controles (Só aparecem se tiver + de 1 imagem) */}
+        
+        {/* Controles do Card Pequeno */}
         {hasMultipleImages && (
           <>
             <button className="carousel-btn prev" onClick={prevImage}><FaChevronLeft /></button>
             <button className="carousel-btn next" onClick={nextImage}><FaChevronRight /></button>
-            
             <div className="carousel-indicators">
               {images.map((_, idx) => (
                 <span key={idx} className={`indicator ${idx === currentIndex ? 'active' : ''}`} />
@@ -75,33 +133,14 @@ const ProjectImageCarousel = ({ images, title }) => {
             </div>
           </>
         )}
-
-        {/* Botão Fullscreen */}
-        <button className="fullscreen-btn" onClick={toggleFullscreen} title="Ver em Tela Cheia">
+        
+        <button className="fullscreen-btn" onClick={openFullscreen} title="Ver em Tela Cheia">
           <FaExpand />
         </button>
       </div>
 
-      {/* --- Modal Fullscreen (Lightbox) --- */}
-      {isFullscreen && (
-        <div className="fullscreen-modal" onClick={toggleFullscreen}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img src={currentSrc} alt={title} className="modal-image" />
-            
-            <button className="modal-close" onClick={toggleFullscreen}><FaTimes /></button>
-            
-            {hasMultipleImages && (
-              <>
-                <button className="modal-nav prev" onClick={prevImage}><FaChevronLeft /></button>
-                <button className="modal-nav next" onClick={nextImage}><FaChevronRight /></button>
-                <div className="modal-counter">{currentIndex + 1} / {images.length}</div>
-              </>
-            )}
-            
-            <h3 className="modal-title">{title}</h3>
-          </div>
-        </div>
-      )}
+      {/* Renderiza o Modal no Body (Portal) */}
+      {isFullscreen && createPortal(modalContent, document.body)}
     </>
   );
 };
@@ -111,6 +150,7 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // URL da API
   const API_URL = process.env.REACT_APP_API_URL 
     ? `${process.env.REACT_APP_API_URL}/projects` 
     : "http://localhost:5000/projects";
@@ -127,8 +167,11 @@ const Projects = () => {
   return (
     <section className="projects-section" id="projects">
       <div className="section-title">
-        <h2>Projetos Selecionados<span>.</span></h2>
-        <p>Soluções reais desenvolvidas com código limpo e performance.</p>
+        <h2>Meus Projetos<span>.</span></h2>
+        <p>Uma seleção de projetos que demonstram minhas habilidades em desenvolvimento.</p>
+        <p className="github-link">
+          Acompanhe todos os meus projetos no <a href="https://github.com/otaviohenrique-dev-web" target="_blank" rel="noreferrer">GitHub <FaExternalLinkAlt /></a>.
+        </p>
       </div>
 
       <div className="projects-grid">

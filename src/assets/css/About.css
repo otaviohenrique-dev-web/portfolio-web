@@ -1,19 +1,48 @@
 /* src/assets/css/About.css */
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 127, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px 20px rgba(0, 255, 127, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 127, 0);
+  }
+}
+
 .about-section {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
+  padding: 80px 20px;
   position: relative;
-  background-color: #0a192f; /* Cor de fundo para evitar sobreposição na Home */
+  background-color: transparent; 
   z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--success), transparent);
 }
 
 /* Wrapper para alinhar Foto e Texto */
 .about-wrapper {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   gap: 60px;
   width: 100%;
   max-width: 1100px;
@@ -22,57 +51,51 @@
 /* --- FOTO DE PERFIL (Com Anel Gradiente) --- */
 .profile-container {
   flex-shrink: 0;
-  position: sticky;
-  top: 100px; /* Faz a foto ficar parada enquanto rola o texto */
+  position: relative;
 }
 
 .profile-gradient-ring {
-  width: 280px;
-  height: 280px;
-  border-radius: 20px; /* Bordas arredondadas modernas (Squircle) */
-  background: var(--gradient-main); /* Gradiente Azul/Roxo */
-  padding: 4px; /* Espessura do anel */
-  box-shadow: 0 10px 30px -10px var(--primary); /* Sombra brilhante */
-  transform: rotate(-3deg); /* Leve inclinação estilosa */
-  transition: transform 0.3s ease;
-}
-
-.profile-gradient-ring:hover {
-  transform: rotate(0deg) scale(1.02);
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--primary), var(--success));
+  padding: 6px;
+  box-shadow: 0 10px 30px -10px var(--success);
+  animation: pulse 2s infinite;
 }
 
 .about-profile-pic {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 16px; /* Um pouco menos que o anel externo */
+  border-radius: 50%;
   background-color: var(--bg-card);
-  border: 4px solid var(--bg-dark); /* Separa a foto do anel colorido */
-  transform: rotate(3deg); /* Compensa a rotação do anel */
+  border: 4px solid var(--bg-dark);
 }
 
 /* --- CARD DE VIDRO (Glassmorphism) --- */
 .glass-container {
   flex: 1;
   background: var(--bg-glass);
-  backdrop-filter: blur(12px); /* O desfoque do vidro */
+  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--border-radius);
   padding: 40px;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  width: 100%;
 }
 
 /* Tipografia */
 .section-title {
-  font-size: clamp(1.8rem, 4vw, 2.5rem); /* Tamanho fluido para evitar títulos gigantes */
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   margin-bottom: 25px;
   color: var(--text-primary);
-  text-align: center; /* Centraliza o título */
+  text-align: center;
 }
 
 .highlight-dot {
-  color: var(--primary);
+  color: var(--success);
 }
 
 .text-content p {
@@ -89,12 +112,13 @@
 
 .lead-text {
   font-size: 1.15rem;
-  color: #e2e8f0 !important; /* Texto um pouco mais claro */
+  color: #e2e8f0 !important;
 }
 
 /* --- BOTÃO PREMIUM --- */
 .cv-area {
   margin: 30px 0;
+  text-align: center;
 }
 
 .btn-premium {
@@ -102,8 +126,8 @@
   align-items: center;
   gap: 10px;
   background: transparent;
-  color: var(--primary);
-  border: 1px solid var(--primary);
+  color: var(--success);
+  border: 1px solid var(--success);
   padding: 12px 28px;
   border-radius: 8px;
   font-weight: 600;
@@ -117,7 +141,7 @@
   content: '';
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  background: var(--primary);
+  background: var(--success);
   z-index: -1;
   transform: scaleX(0);
   transform-origin: left;
@@ -126,7 +150,7 @@
 
 .btn-premium:hover {
   color: white;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 20px rgba(0, 255, 127, 0.4);
 }
 
 .btn-premium:hover::before {
@@ -161,7 +185,7 @@
 
 .skill-icon {
   font-size: 1.2rem;
-  display: flex; /* Centraliza o ícone */
+  display: flex;
 }
 
 .skill-name {
@@ -172,28 +196,23 @@
 
 /* RESPONSIVIDADE */
 @media (max-width: 900px) {
-  .about-wrapper {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
-  
-  .profile-container {
-    position: static; /* Remove o sticky no mobile */
-  }
-
   .profile-gradient-ring {
-    width: 200px;
-    height: 200px;
+    width: 280px;
+    height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-gradient-ring {
+    width: 240px;
+    height: 240px;
   }
 
   .glass-container {
     padding: 25px;
-    width: 100%;
   }
 
   .section-title {
     font-size: 2rem;
-    text-align: center;
   }
 }

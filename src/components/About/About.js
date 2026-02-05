@@ -49,20 +49,20 @@ const About = React.forwardRef((props, ref) => {
         <motion.div className="glass-container" variants={itemVariants}>
            
             <h2 className="section-title">
-              Sobre Mim <span className="highlight-dot">.</span>
+              Minha Jornada como Desenvolvedor <span className="highlight-dot">.</span>
             </h2>
 
             <div className="text-content">
               <p className="lead-text">
-                Olá! Sou <strong>Otávio Henrique</strong>, um Desenvolvedor Full Stack focado em resolver problemas reais. Combino a lógica do <strong>Back-end (Java/Node)</strong> com a interatividade do <strong>Front-end (React)</strong> para criar aplicações web completas.
+                Olá! Sou <strong>Otávio Henrique</strong>, um Desenvolvedor Full Stack apaixonado por criar soluções que impactam positivamente a vida das pessoas. Minha jornada no mundo da programação começou com o desejo de transformar ideias em realidade, e hoje tenho o prazer de combinar a robustez do <strong>Back-end (Java/Node)</strong> com a elegância e interatividade do <strong>Front-end (React)</strong>.
               </p>
 
               <p>
-                Minha abordagem é prática: gosto de entender a dor do usuário e traduzir isso em código limpo e performático. Tenho experiência construindo <strong>SPAs</strong>, consumindo <strong>APIs REST</strong> e automatizando processos com <strong>Python</strong>.
+                Acredito que a tecnologia é uma ferramenta poderosa para resolver problemas complexos. Por isso, meu foco é sempre em entender a necessidade do usuário para então construir aplicações com código limpo, performático e escalável. Tenho experiência sólida na construção de <strong>SPAs (Single Page Applications)</strong>, na integração com <strong>APIs REST</strong> e na automação de tarefas com <strong>Python</strong>.
               </p>
 
               <p>
-                Atualmente, busco integrar times ágeis onde eu possa aplicar meu conhecimento em <strong>React.js</strong> e <strong>Ecossistema Java</strong>, contribuindo desde o primeiro dia com entregas de valor.
+                Estou sempre em busca de novos desafios e de oportunidades para aprender e crescer. Atualmente, meu objetivo é colaborar com equipes dinâmicas e inovadoras, onde eu possa aplicar minhas habilidades em <strong>React.js</strong> e no <strong>ecossistema Java</strong> para criar produtos de alto valor.
               </p>
             </div>
 
@@ -79,7 +79,7 @@ const About = React.forwardRef((props, ref) => {
 
             {/* Stack Tecnológica */}
             <div className="skills-section">
-              <h3>Tech Stack Principal</h3>
+              <h3>Minhas Ferramentas Favoritas</h3>
               <div className="skills-grid">
                 {[
                   { icon: <FaReact />, name: "React", color: "#61DAFB" },

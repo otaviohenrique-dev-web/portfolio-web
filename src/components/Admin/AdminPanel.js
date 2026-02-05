@@ -1,8 +1,14 @@
 // src/components/Admin/AdminPanel.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { FaCloudUploadAlt, FaTrash, FaCheckCircle } from 'react-icons/fa';
+import { FaCloudUploadAlt, FaTrash } from 'react-icons/fa';
 import '../../assets/css/Admin.css'; // Importando o CSS Premium
+
+
+// URL da API (Do Render ou Local)
+const API_URL = process.env.REACT_APP_API_URL 
+    ? `${process.env.REACT_APP_API_URL}/projects` 
+    : "http://localhost:5000/projects";
 
 const AdminPanel = () => {
     const [title, setTitle] = useState('');
@@ -14,24 +20,19 @@ const AdminPanel = () => {
     const [loading, setLoading] = useState(false);
     const [projects, setProjects] = useState([]);
 
-    // URL da API (Do Render ou Local)
-    const API_URL = process.env.REACT_APP_API_URL 
-        ? `${process.env.REACT_APP_API_URL}/projects` 
-        : "http://localhost:5000/projects";
-
-    // Busca projetos ao carregar
-    useEffect(() => {
-        fetchProjects();
-    }, []);
-
-    const fetchProjects = async () => {
+    const fetchProjects = useCallback(async () => {
         try {
             const res = await axios.get(API_URL);
             setProjects(res.data);
         } catch (error) {
             console.error("Erro ao carregar projetos", error);
         }
-    };
+    }, []);
+
+    // Busca projetos ao carregar
+    useEffect(() => {
+        fetchProjects();
+    }, [fetchProjects]);
 
     const handleImageChange = (e) => {
         setImages(e.target.files);

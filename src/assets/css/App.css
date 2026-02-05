@@ -1,104 +1,138 @@
-/* src/App.css */
+/* src/App.css - Design System Premium Minimalista */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
 :root {
-  --primary-color: #00d2ff;
-  --bg-dark: #050505;
-  --bg-card: #111;
+  --primary: #00d2ff;     /* Azul Neon Principal */
+  --success: #00ff7f;   /* Verde Sucesso */
+  --bg-dark: #050505;     /* Preto Quase Absoluto */
   --text-main: #ffffff;
-  --text-muted: #a0a0a0;
-  --nav-height: 80px; /* Altura fixa do menu para cálculos */
+  --nav-height: 80px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: var(--bg-dark);
-  color: var(--text-main);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden;
-}
-
-/* --- Container Geral --- */
 .App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Ajuste para o conteúdo não ficar escondido atrás do menu fixo */
 main {
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* --- Seções Gerais --- */
+/* --- HERO SECTION (Premium Text Only) --- */
+.hero-section {
+  width: 100%;
+  height: 100vh; /* Tela Cheia */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+  /* Efeito de "Spotlight" no centro */
+  background: radial-gradient(circle at center, rgba(0, 210, 255, 0.08) 0%, var(--bg-dark) 70%);
+}
+
+.hero-content-center {
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 1s ease-out;
+}
+
+/* Texto Pequeno Superior */
+.hero-welcome {
+  color: var(--primary);
+  font-size: 1rem;
+  letter-spacing: 4px; /* Espaçamento chique */
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 25px;
+  opacity: 0.9;
+}
+
+/* Título Principal Gigante */
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.hero-title .highlight {
+  background: linear-gradient(90deg, #fff, var(--primary));
+  /* Correção do Warning aqui: */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Subtítulo (Nome e Cargo) */
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #a0a0a0;
+  margin-bottom: 50px;
+  font-weight: 300;
+}
+
+/* Botões */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #000;
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 25px rgba(0, 210, 255, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 40px rgba(0, 210, 255, 0.5);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #fff;
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Animação de Entrada Suave */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Ajustes Gerais --- */
 section {
   padding: 80px 20px;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto; /* Centraliza a seção na tela */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
-/* --- Títulos Responsivos (Evita títulos gigantes) --- */
-h1 {
-  font-size: clamp(2rem, 5vw, 4rem); /* Mínimo 2rem, Ideal 5vw, Máximo 4rem */
-  text-align: center;
-  line-height: 1.2;
-}
-
-h2 {
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  text-align: center;
-  margin-bottom: 20px;
-  color: var(--text-main);
-}
-
-/* --- HOME / HERO SECTION (Correção do "Invadindo") --- */
-#home {
-  min-height: 100vh; /* Ocupa 100% da altura da janela */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding-top: var(--nav-height); /* Compensa o menu fixo */
-  position: relative;
-  background: radial-gradient(circle at center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
-}
-
-#home h1 {
-  background: linear-gradient(90deg, #fff, var(--primary-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 20px;
-}
-
-/* --- SOBRE (Garante espaçamento) --- */
-#about {
-  scroll-margin-top: var(--nav-height); /* Quando clicar no menu, para no lugar certo */
-  background-color: #0a0a0a; /* Diferencia levemente do fundo */
-  border-radius: 20px;
-  margin: 40px auto;
-}
-
-/* --- Scrollbar Bonita --- */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #000;
-}
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color);
+/* Responsividade */
+@media (max-width: 768px) {
+  .hero-buttons { flex-direction: column; width: 100%; max-width: 300px; }
+  .btn-primary, .btn-secondary { width: 100%; }
 }

@@ -1,135 +1,29 @@
-/* src/index.css */
-
-/* 1. Importação de Fontes Premium (Google Fonts) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@500;700&display=swap');
-
-/* 2. Variáveis Globais (O Segredo do Design System) */
+/* src/index.css - Global Reset */
 :root {
-  /* Cores de Fundo (Dark Theme Profundo) */
-  --bg-dark: #0a0a0a;       /* Quase preto */
-  --bg-card: #111111;       /* Cinza muito escuro para cards */
-  --bg-glass: rgba(255, 255, 255, 0.03); /* Efeito de vidro */
-
-  /* Cores de Acento (Neon/Gradiente) */
-  --primary: #3b82f6;       /* Azul Vibrante */
-  --secondary: #8b5cf6;     /* Roxo Vibrante */
-  --accent: #06b6d4;        /* Ciano */
-  --gradient-main: linear-gradient(135deg, var(--primary), var(--secondary));
-
-  /* Tipografia */
-  --text-primary: #f8fafc;  /* Branco gelo (leitura melhor que branco puro) */
-  --text-secondary: #94a3b8; /* Cinza azulado para textos de apoio */
-  
-  /* Fontes */
-  --font-heading: 'Outfit', sans-serif; /* Moderna e geométrica */
-  --font-body: 'Inter', sans-serif;     /* Limpa e legível */
-
-  /* Espaçamentos e Bordas */
-  --border-radius: 12px;
-  --nav-height: 80px;
+  --bg-dark: #050505;
+  --text-main: #ffffff;
 }
 
-/* 3. Reset e Estilos Base */
-html {
-  scroll-behavior: smooth; /* Rolagem suave nativa */
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  padding: 0;
-  background-color: var(--bg-dark);
-  color: var(--text-primary);
-  font-family: var(--font-body);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
   overflow-x: hidden; /* Evita rolagem horizontal indesejada */
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 100%;
 }
 
-/* Reset Global de Box-Sizing */
-* {
-  box-sizing: border-box;
-  max-width: 100%;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-/* Remover overflow de todos os elementos */
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-iframe {
-  max-width: 100%;
-}
-
-table {
-  max-width: 100%;
-}
-
-/* 4. Scrollbar Personalizada (Toque Premium) */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-dark); 
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155; 
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary); 
-}
-
-/* 5. Ajuste de Scroll para âncoras */
-#about, #projects, #contact {
-  scroll-margin-top: 100px;
-}
-
-/* 6. Responsivo Global */
-@media (max-width: 768px) {
-  :root {
-    --nav-height: 70px;
-  }
-
-  html {
-    font-size: 15px;
-  }
-
-  #about, #projects, #contact {
-    scroll-margin-top: 85px;
-  }
-}
-
-@media (max-width: 480px) {
-  :root {
-    --nav-height: 65px;
-  }
-
-  html {
-    font-size: 14px;
-  }
-
-  #about, #projects, #contact {
-    scroll-margin-top: 80px;
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-}
-
-@media (max-width: 600px) {
-  #about, #projects, #contact {
-    scroll-margin-top: 85px;
-  }
-}
+/* Remove estilos padrão de links e botões */
+a { text-decoration: none; color: inherit; }
+button { border: none; outline: none; background: none; }
