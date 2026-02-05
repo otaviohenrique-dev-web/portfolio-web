@@ -1,287 +1,196 @@
 /* src/assets/css/About.css */
 
-/* --- LAYOUT GERAL --- */
 .about-section {
-  position: relative;
-  width: 100%;
-  /* Garante que o container ocupe todo o espaço necessário */
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 0 20px;
-  box-sizing: border-box;
-  overflow-x: hidden;
+  position: relative;
 }
 
-/* Wrapper principal */
+/* Wrapper para alinhar Foto e Texto */
 .about-wrapper {
   display: flex;
+  align-items: flex-start;
+  gap: 60px;
   width: 100%;
-  max-width: 1200px;
-  position: relative;
-  overflow-x: hidden;
+  max-width: 1100px;
 }
 
-/* --- COLUNA DA ESQUERDA (IMAGEM FIXA/CAPA) --- */
+/* --- FOTO DE PERFIL (Com Anel Gradiente) --- */
 .profile-container {
-  /* O PULO DO GATO: */
-  width: 40%; /* Define uma largura fixa para a coluna da imagem */
-  height: 100vh; /* Ocupa a altura total da tela */
-  position: sticky; /* Gruda na tela */
-  top: 0; /* Cola no topo */
-  
-  /* Centraliza a imagem na coluna fixa */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10;
-  
-  /* Se a tela for pequena na altura, permite scroll interno se precisar */
-  overflow: hidden; 
+  flex-shrink: 0;
+  position: sticky;
+  top: 100px; /* Faz a foto ficar parada enquanto rola o texto */
 }
 
-/* Efeito Blur/Glow atrás da imagem (O pedido da "Sessão Blur") */
-.profile-container::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 80%;
-  background: var(--gradient-main); /* Usa suas cores globais */
-  filter: blur(80px); /* O desfoque pesado que cria a "atmosfera" */
-  opacity: 0.4;
-  z-index: -1;
-  border-radius: 50%;
-}
-
-/* Anel da Imagem */
 .profile-gradient-ring {
-  width: 320px; /* Um pouco maior para impor presença de "Capa" */
-  height: 320px;
-  border-radius: 20px;
-  background: var(--gradient-main);
-  padding: 4px;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-  
-  /* Mantemos a flutuação que você gostou */
-  animation: float 6s ease-in-out infinite;
+  width: 280px;
+  height: 280px;
+  border-radius: 20px; /* Bordas arredondadas modernas (Squircle) */
+  background: var(--gradient-main); /* Gradiente Azul/Roxo */
+  padding: 4px; /* Espessura do anel */
+  box-shadow: 0 10px 30px -10px var(--primary); /* Sombra brilhante */
+  transform: rotate(-3deg); /* Leve inclinação estilosa */
+  transition: transform 0.3s ease;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-15px) rotate(-2deg); }
+.profile-gradient-ring:hover {
+  transform: rotate(0deg) scale(1.02);
 }
 
 .about-profile-pic {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 16px;
-  border: 4px solid var(--bg-dark);
+  border-radius: 16px; /* Um pouco menos que o anel externo */
+  background-color: var(--bg-card);
+  border: 4px solid var(--bg-dark); /* Separa a foto do anel colorido */
+  transform: rotate(3deg); /* Compensa a rotação do anel */
 }
 
-/* --- COLUNA DA DIREITA (TEXTO QUE ROLA) --- */
+/* --- CARD DE VIDRO (Glassmorphism) --- */
 .glass-container {
-  flex: 1; /* Ocupa o restante do espaço (60%) */
-  margin-top: 50px; /* Um respiro no topo */
-  margin-bottom: 50px; /* Um respiro no fim */
-  
-  /* Estilo Vidro */
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px); /* Blur no vidro do texto também */
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  flex: 1;
+  background: var(--bg-glass);
+  backdrop-filter: blur(12px); /* O desfoque do vidro */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--border-radius);
-  padding: 50px;
+  padding: 40px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* --- TIPOGRAFIA & DETALHES --- */
+/* Tipografia */
 .section-title {
-  font-size: 3rem; /* Título maior */
-  margin-bottom: 30px;
+  font-size: 2.5rem;
+  margin-bottom: 25px;
   color: var(--text-primary);
-  font-family: var(--font-heading);
 }
 
-.highlight-dot { color: var(--primary); }
+.highlight-dot {
+  color: var(--primary);
+}
 
 .text-content p {
-  font-size: 1.1rem;
-  margin-bottom: 25px;
+  font-size: 1.05rem;
+  margin-bottom: 20px;
   color: var(--text-secondary);
-  line-height: 1.8;
+  line-height: 1.7;
+}
+
+.text-content strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.lead-text {
+  font-size: 1.15rem;
+  color: #e2e8f0 !important; /* Texto um pouco mais claro */
+}
+
+/* --- BOTÃO PREMIUM --- */
+.cv-area {
+  margin: 30px 0;
 }
 
 .btn-premium {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(59, 130, 246, 0.1);
+  gap: 10px;
+  background: transparent;
   color: var(--primary);
   border: 1px solid var(--primary);
-  padding: 14px 32px;
+  padding: 12px 28px;
   border-radius: 8px;
   font-weight: 600;
   font-family: var(--font-heading);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: var(--primary);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
 }
 
 .btn-premium:hover {
-  background: var(--primary);
   color: white;
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
 }
 
-/* SKILLS */
+.btn-premium:hover::before {
+  transform: scaleX(1);
+}
+
+/* --- SKILLS GRID --- */
+.skills-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--secondary);
+  padding-left: 10px;
+}
+
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 20px;
 }
 
 .skill-chip {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: rgba(0, 0, 0, 0.3);
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 12px 20px;
-  border-radius: 50px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: default;
   transition: all 0.3s ease;
 }
 
-.skill-name { color: var(--text-secondary); font-weight: 500; }
+.skill-icon {
+  font-size: 1.2rem;
+  display: flex; /* Centraliza o ícone */
+}
 
-/* --- RESPONSIVIDADE (MOBILE) --- */
+.skill-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* RESPONSIVIDADE */
 @media (max-width: 900px) {
   .about-wrapper {
-    flex-direction: column; /* Empilha no mobile */
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
   }
-
+  
   .profile-container {
-    width: 100%;
-    height: auto; /* Remove a altura fixa no mobile */
-    position: relative; /* Remove o sticky no mobile */
-    top: auto;
-    padding: 40px 0;
+    position: static; /* Remove o sticky no mobile */
   }
 
   .profile-gradient-ring {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
 
   .glass-container {
-    margin-top: 0;
-    padding: 30px 20px;
+    padding: 25px;
+    width: 100%;
   }
 
   .section-title {
     font-size: 2rem;
-  }
-
-  .text-content p {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-section {
-    padding: 0 15px;
-  }
-
-  .profile-gradient-ring {
-    width: 220px;
-    height: 220px;
-  }
-
-  .glass-container {
-    padding: 25px 16px;
-    margin-bottom: 30px;
-  }
-
-  .section-title {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-  }
-
-  .text-content p {
-    font-size: 0.95rem;
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-
-  .skill-chip {
-    padding: 10px 16px;
-    font-size: 0.9rem;
-  }
-
-  .btn-premium {
-    padding: 12px 24px;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-section {
-    padding: 0 12px;
-  }
-
-  .profile-container {
-    padding: 30px 0;
-  }
-
-  .profile-gradient-ring {
-    width: 180px;
-    height: 180px;
-  }
-
-  .profile-container::before {
-    width: 130%;
-    height: 100%;
-  }
-
-  .glass-container {
-    padding: 20px 14px;
-    border-radius: 12px;
-  }
-
-  .section-title {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-  }
-
-  .text-content p {
-    font-size: 0.9rem;
-    margin-bottom: 16px;
-    line-height: 1.5;
-  }
-
-  .skills-grid {
-    gap: 10px;
-    margin-top: 15px;
-  }
-
-  .skill-chip {
-    padding: 8px 14px;
-    font-size: 0.8rem;
-    gap: 8px;
-  }
-
-  .btn-premium {
-    padding: 10px 20px;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    width: 100%;
-    justify-content: center;
-    margin-top: 15px;
-  }
-
-  .highlight-dot {
-    font-size: 0.9em;
+    text-align: center;
   }
 }

@@ -1,25 +1,22 @@
-// src/components/Projects/Projects.js
-import React, { useState, useEffect } from 'react'; 
-import '../../assets/css/Projects.css';
-import ImageGallery from 'react-image-gallery';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import './Projects.css'; // Certifique-se de que este arquivo existe (ou remova se usar outro CSS)
 
-const Projects = React.forwardRef((props, ref) => {
-  // 1. Estado para guardar os projetos que vêm da API
-  const [projectsData, setProjectsData] = useState([]);
+const Projects = () => {
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 2. URL do Backend a partir da variável de ambiente
-  const API_URL = `${process.env.REACT_APP_API_URL}/projects`; 
+  // Define a URL da API (Produção ou Local)
+  const API_URL = process.env.REACT_APP_API_URL 
+    ? `${process.env.REACT_APP_API_URL}/projects` 
+    : "http://localhost:5000/projects";
 
-  // 3. Busca os dados assim que o componente carrega
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get(API_URL);
-        setProjectsData(response.data);
+        setProjects(response.data);
       } catch (error) {
         console.error("Erro ao buscar projetos:", error);
       } finally {
@@ -28,104 +25,80 @@ const Projects = React.forwardRef((props, ref) => {
     };
 
     fetchProjects();
-  }, []);
+  }, [API_URL]);
+
+  if (loading) {
+    return <div style={{ textAlign: 'center', color: '#fff', padding: '50px' }}>Carregando projetos...</div>;
+  }
 
   return (
-    <section ref={ref} id="projects" className="projects-section">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="projects-header"
-      >
-        <h2>Projetos Selecionados<span className="highlight-dot">.</span></h2>
-        <p className="projects-subtitle">
-          Uma coleção de soluções reais vindas diretamente do meu banco de dados. 
-          Veja mais no meu <a href='https://github.com/otaviohenrique-dev-web' target="_blank" rel="noopener noreferrer">GitHub</a>.
-        </p>
-      </motion.div>
+    <section className="projects-section" id="projects">
+      <div className="container">
+        <div className="section-title">
+          <h2>Projetos Selecionados<span>.</span></h2>
+          <p>
+            Uma coleção de soluções reais vindas diretamente do meu banco de dados. 
+            Veja mais no meu <a href="https://github.com/otaviohenrique-dev-web" target="_blank" rel="noopener noreferrer">GitHub</a>.
+          </p>
+        </div>
 
-      {/* Exibe mensagem de carregando se a API demorar */}
-      {loading ? (
-        <p style={{textAlign: 'center', color: 'var(--text-secondary)'}}>Carregando projetos...</p>
-      ) : (
         <div className="projects-grid">
-          {projectsData.map((project, index) => (
-            <motion.div 
-              key={project._id || index} // MongoDB usa _id
-              className="project-card glass-panel"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-            >
-              
-              {/* Galeria de Imagens */}
-              <div className="card-gallery">
-                {/* Verifica se existem imagens antes de renderizar a galeria */}
-                {project.images && project.images.length > 0 ? (
-                    <ImageGallery
-                    items={project.images.map(img => ({
-                        original: img.original, // Backend já manda a URL completa do Cloudinary
-                        thumbnail: img.thumbnail
-                    }))}
-                    showThumbnails={false}
-                    showFullscreenButton={true}
-                    showPlayButton={false}
-                    showNav={true}
-                    lazyLoad={true}
-                    additionalClass="custom-gallery"
-                    />
-                ) : (
-                    // Placeholder caso o projeto não tenha imagem
-                    <div style={{height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#000'}}>
-                        <span style={{color: '#555'}}>Sem imagem</span>
-                    </div>
-                )}
-              </div>
+          {projects.length > 0 ? (
+            projects.map((project) => (
+              <div className="project-card" key={project._id}>
+                
+                {/* --- AQUI ESTÁ A CORREÇÃO DA IMAGEM --- */}
+                <div className="project-image-wrapper">
+                  <img 
+                    src={
+                      project.images && project.images.length > 0 
+                        ? project.images[0] // Pega a primeira imagem do array
+                        : "https://via.placeholder.com/600x400?text=Projeto+Sem+Imagem" // Imagem padrão se não tiver nada
+                    } 
+                    alt={project.title} 
+                    className="project-image"
+                  />
+                </div>
+                {/* -------------------------------------- */}
 
-              {/* Conteúdo do Projeto */}
-              <div className="card-content">
-                <div className="card-header">
+                <div className="project-content">
                   <h3>{project.title}</h3>
-                  <div className="tech-tags">
-                     {/* Verifica se technologies existe antes de dar map */}
-                     {project.technologies && project.technologies.slice(0, 3).map((tech, i) => (
-                       <span key={i} className="tech-tag">{tech}</span>
-                     ))}
-                     {project.technologies && project.technologies.length > 3 && <span className="tech-tag">...</span>}
+                  
+                  {/* Tags de Tecnologias */}
+                  <div className="project-tags">
+                    {project.technologies && project.technologies.map((tech, index) => (
+                      <span key={index} className="tech-tag">
+                        {tech.trim()}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="project-description">
+                    {project.description}
+                  </p>
+
+                  <div className="project-links">
+                    {project.repoUrl && (
+                      <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="btn-link">
+                        <FaGithub /> Código
+                      </a>
+                    )}
+                    {project.demoUrl && (
+                      <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-link outline">
+                        <FaExternalLinkAlt /> Live Demo
+                      </a>
+                    )}
                   </div>
                 </div>
-
-                <p className="card-desc">{project.description}</p>
-
-                {/* Botões de Ação */}
-                <div className="card-actions">
-                  {project.demoUrl ? (
-                    <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" className="btn-action primary">
-                      <FaExternalLinkAlt /> Demo
-                    </a>
-                  ) : (
-                    <span className="btn-action disabled" title="Apenas Backend/Desktop">
-                      <FaExternalLinkAlt /> Offline
-                    </span>
-                  )}
-                  
-                  {project.repoUrl && (
-                    <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="btn-action secondary">
-                      <FaGithub /> Código
-                    </a>
-                  )}
-                </div>
               </div>
-
-            </motion.div>
-          ))}
+            ))
+          ) : (
+            <p style={{ color: '#aaa' }}>Nenhum projeto encontrado. Adicione pelo Painel Admin!</p>
+          )}
         </div>
-      )}
+      </div>
     </section>
   );
-});
+};
 
 export default Projects;

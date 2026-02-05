@@ -3,17 +3,19 @@ import React from 'react';
 import '../../assets/css/About.css';
 import { FaHtml5, FaCss3Alt, FaJsSquare, FaReact, FaNodeJs, FaGitAlt, FaDownload, FaPython } from 'react-icons/fa';
 import { BsStars } from "react-icons/bs"; 
+import profileAboutPic from '../../assets/images/profile_pic.jpg';
 import { motion } from 'framer-motion';
 
 const About = React.forwardRef((props, ref) => {
 
-  const cvFileName = "files/CV_Otavio_HenriqueV2.pdf"; 
+  const cvFileName = "files/CV_Otavio_Henrique.pdf"; 
 
+  // Variantes de Animação
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: { 
       opacity: 1,
-      transition: { staggerChildren: 0.15 } 
+      transition: { staggerChildren: 0.15 } // Efeito cascata mais rápido
     }
   };
 
@@ -34,17 +36,14 @@ const About = React.forwardRef((props, ref) => {
     >
       <div className="about-wrapper">
         
+        {/* Lado Esquerdo: Foto com Anel Gradiente */}
         <motion.div className="profile-container" variants={itemVariants}>
            <div className="profile-gradient-ring">
-             {/* CORREÇÃO: Usando process.env.PUBLIC_URL aqui também */}
-             <img 
-                src={process.env.PUBLIC_URL + '/images/profile_pic.jpg'} 
-                alt="Otávio Henrique" 
-                className="about-profile-pic"
-             />
+             <img src={profileAboutPic} alt="Otávio Henrique" className="about-profile-pic"/>
            </div>
         </motion.div>
 
+        {/* Lado Direito: Card de Vidro com Texto */}
         <motion.div className="glass-container" variants={itemVariants}>
            
             <h2 className="section-title">
@@ -65,16 +64,18 @@ const About = React.forwardRef((props, ref) => {
               </p>
             </div>
 
+            {/* Área de Download do CV */}
             <div className="cv-area">
               <a
                 href={`${process.env.PUBLIC_URL}/${cvFileName}`}
-                download="CV_Otavio_HenriqueV2.pdf"
+                download="CV_Otavio_Henrique.pdf"
                 className="btn-premium"
               >
                 <FaDownload /> Download CV
               </a>
             </div>
 
+            {/* Stack Tecnológica */}
             <div className="skills-section">
               <h3>Tech Stack Principal</h3>
               <div className="skills-grid">
@@ -106,4 +107,4 @@ const About = React.forwardRef((props, ref) => {
   );
 });
 
-export default About; 
+export default About;
