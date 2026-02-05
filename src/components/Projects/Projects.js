@@ -9,22 +9,36 @@ const ProjectImageCarousel = ({ images, title }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    // Se não tiver imagens ou só tiver uma, não faz o loop
     if (!images || images.length <= 1) return;
-
-    // Troca de imagem a cada 3.5 segundos
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3500);
-
-    return () => clearInterval(interval); // Limpa o timer se sair da tela
+    return () => clearInterval(interval);
   }, [images]);
 
-  // URL da imagem atual ou Placeholder se não tiver nada
-  const currentImageSrc = 
-    images && images.length > 0 
-      ? images[currentIndex] 
-      : "https://via.placeholder.com/600x400?text=Projeto+Sem+Imagem";
+  // Lógica de Proteção: Tenta extrair a URL correta independente do formato
+  const getImageUrl = (img) => {
+    if (!img) return "https://via.placeholder.com/600x400?text=Sem+Imagem";
+    
+    // Caso 1: É uma string (Link direto)
+    if (typeof img === 'string') {
+        if (img.includes('localhost') || !img.startsWith('http')) {
+            return "https://via.placeholder.com/600x400?text=Link+Quebrado";
+        }
+        return img;
+    }
+    
+    // Caso 2: É um objeto (Aqui estava o erro!)
+    // Agora aceitamos .original (que vem do seu JSON), além de .secure_url e .url
+    if (typeof img === 'object') {
+        return img.original || img.secure_url || img.url || "https://via.placeholder.com/600x400?text=Erro+Formato";
+    }
+
+    return "https://via.placeholder.com/600x400?text=Sem+Imagem";
+  };
+
+  const currentImageRaw = images && images.length > 0 ? images[currentIndex] : null;
+  const currentImageSrc = getImageUrl(currentImageRaw);
 
   return (
     <div className="project-image-wrapper">
@@ -32,9 +46,9 @@ const ProjectImageCarousel = ({ images, title }) => {
         src={currentImageSrc} 
         alt={`${title} - Preview ${currentIndex + 1}`} 
         className="project-image"
+        onError={(e) => { e.target.src = "https://via.placeholder.com/600x400?text=Imagem+Nao+Carregou"; }}
       />
       
-      {/* Indicadores (Bolinhas) só aparecem se tiver mais de 1 imagem */}
       {images && images.length > 1 && (
         <div className="carousel-indicators">
           {images.map((_, idx) => (
@@ -93,7 +107,6 @@ const Projects = () => {
             projects.map((project) => (
               <div className="project-card" key={project._id}>
                 
-                {/* Usando o componente de Carrossel aqui */}
                 <ProjectImageCarousel images={project.images} title={project.title} />
 
                 <div className="project-content">
