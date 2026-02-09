@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 
 const About = React.forwardRef((props, ref) => {
 
-  const cvFileName = "files/CV_Otavio_Henrique.pdf"; 
+  const cvFileName = "files/CV_Otavio_HenriqueV2.pdf"; 
 
   // Referencing image from public/images folder
   const profileAboutPic = `${process.env.PUBLIC_URL}/images/profile_pic.jpg`;
@@ -70,7 +70,7 @@ const About = React.forwardRef((props, ref) => {
             <div className="cv-area">
               <a
                 href={`${process.env.PUBLIC_URL}/${cvFileName}`}
-                download="CV_Otavio_Henrique.pdf"
+                download="CV_Otavio_HenriqueV2.pdf"
                 className="btn-premium"
               >
                 <FaDownload /> Download CV
