@@ -39,7 +39,7 @@ const Header = ({ scrollToSection, refs }) => {
           <div className="profile-thumb">
             {/* CORREÇÃO: Usando process.env.PUBLIC_URL para achar a imagem */}
             <img 
-              src={process.env.PUBLIC_URL + '/images/profile.jpg'} 
+              src={process.env.PUBLIC_URL + '/images/profile_pic.jpg'} 
               alt="Otávio Henrique" 
             />
           </div>
