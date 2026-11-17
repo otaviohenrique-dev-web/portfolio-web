@@ -6,7 +6,7 @@ const Footer = () => {
     const currentYear = new Date().getFullYear();
     
     // URLs centralizadas para facilitar manutenção
-    const repoUrl = "https://github.com/otaviohenrique-dev-web/portifolio-web";
+    const repoUrl = "https://github.com/otaviohenrique-dev-web/portfolio-web";
     const linkedinUrl = "https://www.linkedin.com/in/otaviohenrique-dev/";
     const githubProfileUrl = "https://github.com/otaviohenrique-dev-web";
     const instagramUrl = "https://www.instagram.com/otavioh.dev";

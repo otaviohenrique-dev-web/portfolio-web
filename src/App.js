@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { FaDownload, FaLinkedin } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
@@ -35,17 +36,27 @@ function App() {
         <section ref={homeRef} id="home" className="hero-section">
           <div id="particle-container"></div>
           <div className="hero-content">
+            <span className="hero-status">
+              <span className="hero-status-dot" aria-hidden="true"></span>
+              Disponível para novas oportunidades
+            </span>
             <h1 className="hero-title">Otávio Henrique</h1>
             <h2 className="hero-subtitle">Desenvolvedor Full Stack</h2>
             <p className="hero-description">
-              Transformando ideias em realidade com código limpo e design moderno.
+              Construo aplicações web do front ao deploy com React, TypeScript, Node.js e Python.
+              Projetos reais em produção, de dashboards financeiros a sistemas de agendamento e CMS.
             </p>
-            <button 
-              className="btn-premium hero-cta"
-              onClick={() => scrollToSection(projectsRef)}
-            >
-              Veja meus projetos
-            </button>
+            <div className="hero-actions">
+              <button className="btn-premium hero-cta" onClick={() => scrollToSection(projectsRef)}>
+                Veja meus projetos
+              </button>
+              <a className="btn-premium hero-cta hero-cta-outline" href={`${process.env.PUBLIC_URL}/files/CV_Otavio_HenriqueV2.pdf`} download="CV_Otavio_Henrique.pdf">
+                <FaDownload /> Baixar CV
+              </a>
+              <a className="btn-premium hero-cta hero-cta-outline" href="https://www.linkedin.com/in/otaviohenrique-dev/" target="_blank" rel="noreferrer">
+                <FaLinkedin /> LinkedIn
+              </a>
+            </div>
           </div>
           <div className="scroll-indicator">
             <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection(aboutRef); }}>

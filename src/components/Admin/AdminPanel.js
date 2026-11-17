@@ -19,6 +19,8 @@ const AdminPanel = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(false);
     const [projects, setProjects] = useState([]);
+    const [adminToken, setAdminToken] = useState(sessionStorage.getItem('adminToken') || '');
+    const authConfig = { headers: { 'x-admin-token': adminToken } };
 
     const fetchProjects = useCallback(async () => {
         try {
@@ -55,7 +57,7 @@ const AdminPanel = () => {
 
         try {
             await axios.post(API_URL, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
+                headers: { 'Content-Type': 'multipart/form-data', 'x-admin-token': adminToken }
             });
             alert('Projeto adicionado com sucesso! 🚀');
             // Limpa o formulário
@@ -75,7 +77,7 @@ const AdminPanel = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Tem certeza que quer deletar esse projeto?")) {
             try {
-                await axios.delete(`${API_URL}/${id}`);
+                await axios.delete(`${API_URL}/${id}`, authConfig);
                 fetchProjects();
             } catch (error) {
                 alert("Erro ao deletar");
@@ -91,6 +93,17 @@ const AdminPanel = () => {
             </div>
 
             <div className="admin-form-card">
+                <div className="form-group">
+                    <label>Token de administrador</label>
+                    <input
+                        className="admin-input"
+                        type="password"
+                        autoComplete="off"
+                        placeholder="Necessário para adicionar ou deletar projetos"
+                        value={adminToken}
+                        onChange={e => { setAdminToken(e.target.value); sessionStorage.setItem('adminToken', e.target.value); }}
+                    />
+                </div>
                 <form onSubmit={handleSubmit}>
                     
                     {/* Linha 1: Título e Tecnologias */}

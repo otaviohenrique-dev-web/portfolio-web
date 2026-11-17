@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom'; // Importação CRUCIAL para o Portal
 import axios from 'axios';
+import projectsData from '../../data/projectsData';
 import { FaGithub, FaExternalLinkAlt, FaExpand, FaChevronLeft, FaChevronRight, FaTimes } from 'react-icons/fa';
 import '../../assets/css/Projects.css';
 
@@ -146,9 +147,24 @@ const ProjectImageCarousel = ({ images, title }) => {
 };
 
 // --- Componente Principal ---
+const ProjectDescription = ({ text }) => {
+  const [expanded, setExpanded] = useState(false);
+  const isLong = (text || '').length > 220;
+  return (
+    <div className="project-description-wrap">
+      <p className={`project-description ${isLong && !expanded ? 'clamped' : ''}`}>{text}</p>
+      {isLong && (
+        <button type="button" className="read-more-btn" onClick={() => setExpanded(!expanded)} aria-expanded={expanded}>
+          {expanded ? 'Mostrar menos' : 'Ler mais'}
+        </button>
+      )}
+    </div>
+  );
+};
+
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Começa com o snapshot local: a API (Render free) pode levar ~50s para acordar.
+  const [projects, setProjects] = useState(projectsData);
 
   // URL da API
   const API_URL = process.env.REACT_APP_API_URL 
@@ -157,12 +173,9 @@ const Projects = () => {
 
   useEffect(() => {
     axios.get(API_URL)
-      .then(res => setProjects(res.data))
-      .catch(err => console.error(err))
-      .finally(() => setLoading(false));
+      .then(res => { if (Array.isArray(res.data) && res.data.length > 0) setProjects(res.data); })
+      .catch(err => console.error(err));
   }, [API_URL]);
-
-  if (loading) return <div className="loading-container">Carregando portfólio...</div>;
 
   return (
     <section className="projects-section" id="projects">
@@ -187,7 +200,7 @@ const Projects = () => {
                     <span key={i} className="tech-tag">{tech.trim()}</span>
                   ))}
                 </div>
-                <p className="project-description">{project.description}</p>
+                <ProjectDescription text={project.description} />
                 
                 <div className="project-links">
                   {project.repoUrl && (

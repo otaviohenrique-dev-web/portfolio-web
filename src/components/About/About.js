@@ -3,6 +3,8 @@ import React from 'react';
 import '../../assets/css/About.css';
 import { FaHtml5, FaCss3Alt, FaJsSquare, FaReact, FaNodeJs, FaGitAlt, FaDownload, FaPython } from 'react-icons/fa';
 import { BsStars } from "react-icons/bs"; 
+import { SiTypescript, SiNextdotjs, SiTailwindcss, SiPostgresql } from 'react-icons/si';
+import { FaJava } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 const About = React.forwardRef((props, ref) => {
@@ -49,7 +51,7 @@ const About = React.forwardRef((props, ref) => {
         <motion.div className="glass-container" variants={itemVariants}>
            
             <h2 className="section-title">
-              Minha Jornada como Desenvolvedor <span className="highlight-dot">.</span>
+              Sobre mim <span className="highlight-dot">.</span>
             </h2>
 
             <div className="text-content">
@@ -79,12 +81,17 @@ const About = React.forwardRef((props, ref) => {
 
             {/* Stack Tecnológica */}
             <div className="skills-section">
-              <h3>Minhas Ferramentas Favoritas</h3>
+              <h3>Stack e ferramentas</h3>
               <div className="skills-grid">
                 {[
                   { icon: <FaReact />, name: "React", color: "#61DAFB" },
                   { icon: <FaNodeJs />, name: "Node.js", color: "#339933" },
                   { icon: <FaJsSquare />, name: "JavaScript", color: "#F7DF1E" },
+                  { icon: <SiTypescript />, name: "TypeScript", color: "#3178C6" },
+                  { icon: <SiNextdotjs />, name: "Next.js", color: "#FFFFFF" },
+                  { icon: <SiTailwindcss />, name: "Tailwind", color: "#38BDF8" },
+                  { icon: <FaJava />, name: "Java", color: "#ED8B00" },
+                  { icon: <SiPostgresql />, name: "PostgreSQL", color: "#4169E1" },
                   { icon: <FaPython />, name: "Python", color: "#3776AB" },
                   { icon: <FaGitAlt />, name: "Git", color: "#F05032" },
                   { icon: <BsStars />, name: "AI Tools", color: "#FFD700" },

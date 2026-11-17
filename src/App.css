@@ -190,3 +190,25 @@ a {
     gap: 40px;
   }
 }
+/* --- Hero: status + CTAs --- */
+.hero-status {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px; margin-bottom: 20px;
+  border: 1px solid rgba(0, 255, 127, 0.35); border-radius: 999px;
+  background: rgba(0, 255, 127, 0.08);
+  color: #b9f5d3; font-size: 0.85rem; font-weight: 600;
+}
+.hero-status-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #00ff7f;
+  box-shadow: 0 0 0 0 rgba(0, 255, 127, 0.6);
+  animation: heroPulse 2s infinite;
+}
+@keyframes heroPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 255, 127, 0.6); }
+  70% { box-shadow: 0 0 0 10px rgba(0, 255, 127, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 255, 127, 0); }
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 8px; }
+.hero-cta-outline { text-decoration: none; opacity: 0.9; }
+@media (prefers-reduced-motion: reduce) { .hero-status-dot { animation: none; } }
+@media (max-width: 480px) { .hero-actions { flex-direction: column; width: 100%; max-width: 280px; margin-inline: auto; } .hero-actions .btn-premium { justify-content: center; } }
